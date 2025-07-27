@@ -1,16 +1,16 @@
-# 🧠 Task 2: Wallet Risk Scoring from Scratch — Compound Protocol
+# Task 2: Wallet Risk Scoring from Scratch — Compound Protocol
 
-## ✅ Objective
+## Objective
 
 To develop a **risk scoring model** (0–1000 scale) for a set of Ethereum wallets interacting with the **Compound V2/V3 protocol**, by analysing their historical on-chain behaviour and computing relevant risk factors.
 
 ---
 
-## 📥 1. Data Collection
+## 1. Data Collection
 
 We were provided with a file `wallets.csv` containing 100 wallet addresses in a column named `wallet_id`.
 
-To collect historical transaction data related to these wallets on Compound V2/V3, we used the following approach:
+To collect historical transaction data related to these wallets on Compound V2/V3, I used the following approach:
 
 - **Source:** [Covalent API](https://www.covalenthq.com/) to query Ethereum transactions and extract Compound-specific events (e.g., `Borrow`, `Repay`, `Supply`, `Withdraw`, `Liquidation`).
 - **Scope of data:**
@@ -28,11 +28,11 @@ The collected raw data was stored in a structured format, with the following key
 
 ---
 
-## 🧹 2. Data Preparation
+## 2. Data Preparation
 
-The raw transactional records were processed to extract **wallet-level features** that influence risk. We grouped and aggregated each wallet's history to derive the following features:
+The raw transactional records were processed to extract **wallet-level features** that influence risk. I grouped and aggregated each wallet's history to derive the following features:
 
-### 🏗️ Feature Set:
+### Feature Set:
 
 | Feature                          | Description                                                |
 |----------------------------------|------------------------------------------------------------|
@@ -45,16 +45,16 @@ The raw transactional records were processed to extract **wallet-level features*
 | `num_liquidations_received`     | Number of times wallet was liquidated                      |
 | `active_days`                   | Number of days wallet was active on Compound               |
 
-### ⚙️ Normalisation:
+### Normalisation:
 
 - Used **Min-Max normalisation** on each numerical feature to bring them to [0, 1] scale.
 - All missing values were filled with 0.
 
 ---
 
-## 🧮 3. Risk Scoring Model
+## 3. Risk Scoring Model
 
-We created a **composite risk score** by assigning weighted importance to each feature:
+I then created a **composite risk score** by assigning weighted importance to each feature:
 
 ```python
 score = (
@@ -80,7 +80,7 @@ Wallets with:
 
 ---
 
-## 📊 4. Score Distribution
+## 4. Score Distribution
 
 ### Histogram of Scores (in buckets of 100):
 
@@ -101,15 +101,15 @@ Wallets with:
 
 ---
 
-## 🔍 5. Behavior Analysis
+## 5. Behavior Analysis
 
-### 🟥 Wallets in Lower Range (0–300):
+### Wallets in Lower Range (0–300):
 - Show signs of **irresponsible borrowing** behavior.
 - **Few or no repayments**, with a high utilization ratio.
 - Many were **liquidated** at least once.
 - Often **inactive** or showed brief participation.
 
-### 🟩 Wallets in Higher Range (701–1000):
+### Wallets in Higher Range (701–1000):
 - Exhibit **healthy repayment patterns**.
 - Maintain a **balanced supply-borrow relationship**.
 - Active over longer durations.
@@ -117,7 +117,7 @@ Wallets with:
 
 ---
 
-## 📁 6. Output
+## 6. Output
 
 The final results are saved in:
 
@@ -134,8 +134,8 @@ With the format:
 
 ---
 
-## ✅ Summary
+## Summary
 
-This task helped evaluate wallet behaviour on Compound from scratch. By designing our own feature engineering and scoring logic, we ensured flexibility, domain alignment, and transparency.
+This task helped evaluate wallet behaviour on Compound from scratch. By designing my own feature engineering and scoring logic, I ensured flexibility, domain alignment, and transparency.
 
 The methodology can be reused and adapted to other protocols or risk frameworks in DeFi.
